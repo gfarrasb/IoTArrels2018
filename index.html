@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+		
+        <meta charset="utf-8">
+        <meta title="IOT2018">
+        <meta name="description" content="Examen de CSS">
+        
+     
+	<style>
+
+	body {
+		background-color: black;
+	}
+
+	header {
+		width: 95%;
+		background-color: #353535;
+		text-shadow: 2px 2px 5px lightgrey; 
+		color: #eeeeee;
+		position: fixed;
+		text-align: center;
+		border-radius: 5px;
+		font-family: arial;
+		z-index: 2;
+		font-size: 60px;
+		font-weight: bold;
+		padding: 25px;
+	}
+
+	nav {
+		
+		top: 140px;		
+		position: fixed;
+		
+	}
+	
+	a	{
+		text-decoration: none;
+		display: block;
+		text-align: center;
+		padding: 10px;
+	}
+	
+	#botons {
+		width: 100px;
+		background-color: lightgrey;
+		font-family: arial;
+		color: blue;
+		border-radius: 5px;
+		margin-bottom: 5px;
+		font-weight: bold;
+		padding: 20px;
+	}
+	
+	#botons:hover {
+		background-color: grey;
+	}
+
+	#seccio {
+
+		border: 1px solid grey;
+		top: 130px;	
+		width: 90%;
+		#height: 1000px;
+		left: 160px;
+		position: relative;
+		#bottom: 50px;
+		#padding: 20px;
+		
+	}
+
+	footer {
+		color: white;
+		position: fixed;
+		bottom: 10px;
+	
+	}
+
+	.titols {
+
+		font-size: 30px;
+		color: white;
+		margin: 10px;
+		font-family: arial;
+		font-weight: bold;
+		display: inline-block;
+		position: absolute;
+		top: 10px;
+	}
+
+	.valors {
+
+		font-size: 100px;
+		color: yellow;
+		font-family: arial;
+		display: inline-block;
+		#margin-left: 50px;
+		text-align: center;
+	}
+
+	.widget {
+		display: inline-block;
+		border: 1px solid yellow;
+		padding: 20px;
+		margin: 15px;
+		border-radius: 5px;
+		width: 18%;
+		position: relative;
+		height: 180px;
+		
+	}
+	
+	</style>
+ 
+    </head>
+    <body>
+		<header>
+		
+			<div id="capcelera">
+			
+				Monitoritzaci? Taller Mec?nic
+							
+			</div>
+			
+		
+		</header>
+		
+			<nav>
+				<a id="botons" href="#">Dades Generals</a>
+				<a id="botons" href="#">M?quina 1</a> 
+				<a id="botons" href="#">M?quina 2</a>
+				<a id="botons" href="#">M?quina 3</a>
+				<a id="botons" href="#">M?quina 4</a>
+	
+
+				
+			</nav>
+		
+		<section id="seccio">
+        	
+			<div class="widget">
+				<p class="titols">Temperatura taller</p>
+				<p id="val_Temp" class="valors">--</p>
+				
+			</div>
+			
+
+			<div class="widget">
+				<p class="titols">Humitat taller</p>
+				<p id= "val_Hum" class="valors">--</p>
+				
+			</div>
+
+			<div class="widget">
+				<p class="titols">Nivell taladrina</p>
+				<p id="val_Fluxe" class="valors">--</p>
+				
+			</div>
+
+			<div class="widget">
+				<p class="titols">Fluxe taladrina</p>
+				<p id="val_Nivell" class="valors">--</p>
+				
+			</div>
+			
+			<div class="widget">
+				<p class="titols">Corrent Fase 1</p>
+				<p id="val_F1"	class="valors">--</p>
+				
+			</div>
+			
+			<div class="widget">
+				<p class="titols">Corrent Fase 1</p>
+				<p id="val_F2" class="valors">--</p>
+				
+			</div>
+			
+			<div class="widget">
+				<p class="titols">Corrent Fase 1</p>
+				<p id="val_F3" class="valors">--</p>
+				
+			</div>
+			    
+		</section>
+
+		       
+  
+        
+        <footer>
+          <h3>Escola Arrels - Mar? de 2018</h3> 
+            
+        </footer>
+		
+		<script src="socket.io/socket.io.js"></script>
+        
+		<script>
+            
+			var socket = io.connect('http://192.168.1.17:8080');
+			
+			socket.on('message', function(message) {
+				//alert('Missatge des del servidor: ' + message);
+				//alert(message);
+		
+				trama = message.split(',');
+				NumMaq = trama[0];
+				CoFa1 = trama[1];
+				CoFa2 = trama[2];
+				CoFa3 = trama[3];
+				Nivell = trama[4];
+				Fluxe = trama[5];
+				Temperatura = 25;
+				Humitat = 48;
+				
+				//alert(CoFa1);
+				
+				document.getElementById("val_F1").innerHTML=CoFa1;
+				document.getElementById("val_F2").innerHTML=CoFa2;
+				document.getElementById("val_F3").innerHTML=CoFa3;
+				document.getElementById("val_Temp").innerHTML=Temperatura + '?';
+				document.getElementById("val_Hum").innerHTML=Humitat + '%';
+				document.getElementById("val_Nivell").innerHTML=Nivell;
+				document.getElementById("val_Fluxe").innerHTML=Fluxe;
+			
+			});
+			
+        </script>
+		
+		
+    </body>
+    
+</html>
